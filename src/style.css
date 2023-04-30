@@ -45,7 +45,9 @@ span{
     margin: 0 auto;
 }
 
-
+.activ {
+    background-color: rgb(97, 166, 239);;
+}
 .keyboard__info {
     text-align: center;
 }

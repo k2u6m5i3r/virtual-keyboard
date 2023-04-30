@@ -615,6 +615,34 @@ class Keyboard {
             localStorage.setItem(choiceOfLanguage, lang);
         });
     }
+    listeners() {
+        document.addEventListener('keydown', (event) => {
+            if (event.code === "ControlLeft" || event.code === "ControlRight") {
+                if (event.altKey) {
+                    console.log(event.code);
+                    console.log(" Alt Crtl Переключить язык");
+                }
+            }
+            if ( event.altKey ) {
+                if (event.code === "ControlLeft" || event.code === "ControlRight") {
+                    console.log(event.code);
+                    console.log(" Crtl Alt Переключить язык");
+                }
+            }
+
+           
+            let b = document.querySelector(`.${event.code}`);
+            b.classList.toggle("activ");
+            console.log(b);
+
+        });
+        document.addEventListener('keyup', (event) => {
+            let temp = document.querySelector(".activ");
+            if(temp){
+                temp.classList.toggle("activ");
+            }
+        });
+    }
 }
 const choiceOfLanguage = "keyboardLanguage";
 let lang = localStorage.getItem(choiceOfLanguage) || "eng";
@@ -622,4 +650,5 @@ let myKeyboard = new Keyboard();
 myKeyboard.buildingPage();
 myKeyboard.buildingKeyboard();
 myKeyboard.closingPage();
+myKeyboard.listeners();
 console.log("in js");
