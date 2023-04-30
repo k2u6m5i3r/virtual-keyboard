@@ -610,9 +610,16 @@ class Keyboard {
         }
         keyboardbBodyEl.appendChild(allKeysEl);
     }
+    closingPage() {
+        window.addEventListener('beforeunload', () => {
+            localStorage.setItem(choiceOfLanguage, lang);
+        });
+    }
 }
-
+const choiceOfLanguage = "keyboardLanguage";
+let lang = localStorage.getItem(choiceOfLanguage) || "eng";
 let myKeyboard = new Keyboard();
 myKeyboard.buildingPage();
 myKeyboard.buildingKeyboard();
+myKeyboard.closingPage();
 console.log("in js");
