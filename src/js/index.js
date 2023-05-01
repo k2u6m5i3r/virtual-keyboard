@@ -514,6 +514,7 @@ const keys = {
 }
 
 class Keyboard {
+
     buildingPage() {
         let wrapperEl = document.createElement("div");
         wrapperEl.classList.add("wrapper");
@@ -539,7 +540,7 @@ class Keyboard {
         let keyboardInfoDesOneEl = document.createElement("p");
         keyboardInfoDesOneEl.textContent = "Клавиатура создана в операционной системе Windows";
         let keyboardInfoDesTwoEl = document.createElement("p");
-        keyboardInfoDesTwoEl.textContent = "Для перекоючения языка комбинация: левый crtl + alt";
+        keyboardInfoDesTwoEl.textContent = "Для перекоючения языка комбинация: alt + ctrl";
         keyboardInfoEl.appendChild(keyboardInfoDesOneEl);
         keyboardInfoEl.appendChild(keyboardInfoDesTwoEl);
 
@@ -603,7 +604,9 @@ class Keyboard {
             itemKeyEng.appendChild(itemKeyEngUp);
             itemKeyEng.appendChild(itemKeyEngCaps);
             itemKeyEng.appendChild(itemKeyEngShiftCaps);
-
+            // itemKey.addEventListener("click", (event)=>{
+            //     console.log("clik",event.currentTarget)
+            // })
             itemKey.appendChild(itemKeyRus);
             itemKey.appendChild(itemKeyEng);
             allKeysEl.appendChild(itemKey);
@@ -617,38 +620,55 @@ class Keyboard {
     }
     listeners() {
         document.addEventListener('keydown', (event) => {
+            if(event.code === "CapsLock"){
+                let b = document.querySelector(`.${event.code}`);
+                b.classList.toggle("activCaps");
+                //перерисовать все большин буквы
+                capsPress =  !capsPress;
+                console.log(capsPress);
+            }
             if (event.code === "ControlLeft" || event.code === "ControlRight") {
                 if (event.altKey) {
-                    console.log(event.code);
-                    console.log(" Alt Crtl Переключить язык");
+                    //переключить язык
+                    if (lang == "eng") {
+                        // на русский
+                        lang = "rus";
+                    } else {
+                        // на английский
+                        lang = "eng";
+                    }
+                    console.log(lang);
                 }
             }
-            if ( event.altKey ) {
-                if (event.code === "ControlLeft" || event.code === "ControlRight") {
-                    console.log(event.code);
-                    console.log(" Crtl Alt Переключить язык");
-                }
-            }
-
-           
             let b = document.querySelector(`.${event.code}`);
             b.classList.toggle("activ");
-            console.log(b);
+            // console.log(b);
 
         });
         document.addEventListener('keyup', (event) => {
             let temp = document.querySelector(".activ");
-            if(temp){
+            if (temp) {
                 temp.classList.toggle("activ");
             }
         });
+        document.addEventListener("click", (event) => {
+
+            console.log(event.target);
+            // console.log(this.tagName);
+            // console.log(event.currentTarget)
+        });
+
     }
 }
 const choiceOfLanguage = "keyboardLanguage";
 let lang = localStorage.getItem(choiceOfLanguage) || "eng";
+let capsPress = false;
 let myKeyboard = new Keyboard();
 myKeyboard.buildingPage();
 myKeyboard.buildingKeyboard();
 myKeyboard.closingPage();
 myKeyboard.listeners();
 console.log("in js");
+
+
+

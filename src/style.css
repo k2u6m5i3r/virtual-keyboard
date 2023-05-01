@@ -48,6 +48,9 @@ span{
 .activ {
     background-color: rgb(97, 166, 239);;
 }
+.activCaps{
+    background-color: rgb(97, 166, 239);;
+}
 .keyboard__info {
     text-align: center;
 }
